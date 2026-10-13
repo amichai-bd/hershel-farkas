@@ -16,10 +16,10 @@ function wire(g,W,H,P,st,cycles){var S=W/2;function pr(p){var q=rot(p,st.ax,st.a
  var mesh=css('--muted');for(var i=0;i<28;i++){var u=i/28;curve(function(t){return P(u,t)},mesh,40,1)}for(var j=0;j<14;j++){var v=j/14;curve(function(t){return P(t,v)},mesh,90,1)}
  (cycles||[]).forEach(function(c){curve(c.f,c.col,140,3.5)})}
 // 1. rotatable torus with a and b cycles
-V.torus3d=function(root){var c=canvas(root,520,380,'Rotatable wireframe torus. The a-cycle (around the tube) and b-cycle (around the hole) are highlighted. Drag or use arrow keys to rotate.');var g=c.getContext('2d');
+V.torus3d=function(root){var c=canvas(root,520,330,'Rotatable wireframe torus. The a-cycle (around the hole) and b-cycle (around the tube) are highlighted. Drag or use arrow keys to rotate.');var g=c.getContext('2d');
  var R=1,r=.42;function P(u,v){u*=2*Math.PI;v*=2*Math.PI;return [(R+r*Math.cos(v))*Math.cos(u),(R+r*Math.cos(v))*Math.sin(u),r*Math.sin(v)]}
- var st={ax:1.0,ay:.3,draw:function(){wire(g,c.width,c.height,P,st,[{f:function(t){return P(0,t)},col:css('--accent')},{f:function(t){return P(t,.5)},col:css('--accent2')}])}};
- dragRotate(c,st);root.appendChild(h('p',{class:'vcap'},'<span style="color:var(--accent)">■</span> a-cycle (around the tube) · <span style="color:var(--accent2)">■</span> b-cycle (around the hole). Drag to rotate.'));st.draw();return st.draw};
+ var st={ax:1.0,ay:.3,draw:function(){wire(g,c.width,c.height,P,st,[{f:function(t){return P(t,.5)},col:css('--accent')},{f:function(t){return P(0,t)},col:css('--accent2')}])}};
+ dragRotate(c,st);root.appendChild(h('p',{class:'vcap'},'<span style="color:var(--accent)">■</span> a-cycle (around the hole) · <span style="color:var(--accent2)">■</span> b-cycle (around the tube), matching the genus-g sketch. Drag or use arrow keys to rotate.'));st.draw();return st.draw};
 // 2. genus-g surface (stylized) with a and b cycles
 V.genus=function(root){var NS='http://www.w3.org/2000/svg';var svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 640 240');svg.setAttribute('role','img');root.appendChild(svg);
  var s=slider(root,'Genus g =',0,6,1,2);var cap=h('p',{class:'vcap',"aria-live":"polite"});root.appendChild(cap);

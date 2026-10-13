@@ -20,7 +20,7 @@ In his own words ([home page](https://math.huji.ac.il/~farkas/)), his research "
 
 He is perhaps best known for the textbook *Riemann Surfaces* (with Irwin Kra, Springer Graduate Texts in Mathematics, 1980), which generations of students have learned from.
 
-This site is written by his grandson, Amichai, to understand that work in layers: a story for anyone, an undergraduate version, and a technical version.
+This site is written by his grandson, Amichai, to understand that work at five levels: for non-technical readers, curious readers, engineers, scientists and mathematicians. There is also a [Playground](playground) of interactive figures.
 
 <span class="todo">TODO (family): a personal introduction, photos, and memories.</span>
 </div>

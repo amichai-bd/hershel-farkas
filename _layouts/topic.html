@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{% assign topics = site.data.topics %}{% assign slug = page.url | split: "/" | last %}
+{% assign topics = site.data.topics %}{% assign slug = page.url | split: "/" | last | remove: ".html" %}
 {% for t in topics %}{% if t.slug == slug %}{% assign i = forloop.index0 %}{% endif %}{% endfor %}
 <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ '/' | relative_url }}">Home</a> › <a href="{{ '/explanations/' | relative_url }}">Explanations</a> › <span aria-current="page">{{ page.title }}</span></nav>
 <article class="topic" data-layers>
