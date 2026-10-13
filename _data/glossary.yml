@@ -1,0 +1,22 @@
+- {term: "genus", def: "The number of holes (handles) of a closed surface: 0 for a sphere, 1 for a torus."}
+- {term: "holomorphic", def: "Complex-differentiable; locally given by a convergent power series."}
+- {term: "meromorphic", def: "Holomorphic except at isolated poles."}
+- {term: "branch point", def: "A point around which the sheets of a multi-valued function are permuted."}
+- {term: "lattice", def: "A set {mω₁ + nω₂ : m, n integers} with ω₁, ω₂ linearly independent over the reals."}
+- {term: "period matrix", def: "The g×g matrix of integrals of normalized holomorphic differentials over the b-cycles of a surface."}
+- {term: "Jacobian", def: "The g-dimensional complex torus Cᵍ/(Zᵍ + τZᵍ) attached to a genus-g surface."}
+- {term: "theta constant", def: "The value of a theta function (with characteristic) at z = 0, viewed as a function of τ."}
+- {term: "characteristic", def: "A pair of vectors (ε, ε′) shifting the summation and phase in a theta function; usually with entries 0 or 1."}
+- {term: "quasi-periodic", def: "Periodic up to an explicit multiplying factor."}
+- {term: "modular form", def: "A holomorphic function on the upper half-plane transforming by (cτ+d)^k under a group of Möbius maps, holomorphic at the cusps."}
+- {term: "modular curve", def: "The compact Riemann surface obtained as the quotient of the upper half-plane (plus cusps) by a finite-index subgroup of SL₂(Z)."}
+- {term: "fundamental domain", def: "A region containing exactly one representative of almost every orbit of a group action."}
+- {term: "partition", def: "A way of writing a positive integer as an unordered sum of positive integers."}
+- {term: "generating function", def: "A power series whose coefficients are the counts of interest."}
+- {term: "divisor", def: "A finite formal integer combination of points on a surface."}
+- {term: "Weierstrass point", def: "A point P where some non-constant meromorphic function has a pole of order ≤ g at P and no other poles."}
+- {term: "Prym variety", def: "For a double cover of curves, the part of the Jacobian of the cover that is anti-invariant under the covering involution."}
+- {term: "Schottky problem", def: "Characterize which matrices in Siegel's upper half-space are period matrices of Riemann surfaces."}
+- {term: "soliton", def: "A solitary wave that keeps its shape and speed, even after colliding with others."}
+- {term: "hyperelliptic", def: "A surface (genus ≥ 2) admitting a degree-2 map to the sphere, e.g. y² = polynomial."}
+- {term: "Siegel upper half-space", def: "Symmetric complex g×g matrices with positive-definite imaginary part."}

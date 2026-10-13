@@ -15,7 +15,7 @@ var groups=[],arts=$$('[data-layers]'),LBL={'Non-technical':'☕ Non-technical',
 arts.forEach(function(art,gi){var hs=$$('h2,h3',art).filter(function(h){return /^(Non-technical|Somewhat technical|Engineers|Scientists|Mathematicians)$/.test(h.textContent.trim())});if(!hs.length)return;
  var bar=document.createElement('div');bar.className='tabs';bar.setAttribute('role','tablist');bar.setAttribute('aria-label','Audience level');
  var panels=hs.map(function(h,i){var p=document.createElement('section');p.className='panel';p.id='layer-'+gi+'-'+i;p.setAttribute('role','tabpanel');p.tabIndex=0;
-  h.parentNode.insertBefore(p,h);var n=h;while(n&&!(n!==h&&hs.indexOf(n)>=0)){var nx=n.nextSibling;p.appendChild(n);n=nx}
+  h.parentNode.insertBefore(p,h);var n=h;while(n&&!(n!==h&&hs.indexOf(n)>=0)&&!(n.nodeType===1&&n.classList.contains('common'))){var nx=n.nextSibling;p.appendChild(n);n=nx}
   var b=document.createElement('button');b.setAttribute('role','tab');b.id='tab-'+gi+'-'+i;b.setAttribute('aria-controls',p.id);b.textContent=LBL[h.textContent.trim()];p.setAttribute('aria-labelledby',b.id);bar.appendChild(b);return p});
  art.insertBefore(bar,panels[0]);var tabs=$$('[role=tab]',bar);groups.push({tabs:tabs,panels:panels});
  tabs.forEach(function(t,i){t.addEventListener('click',function(){selAll(i)});t.addEventListener('keydown',function(e){var k={ArrowRight:1,ArrowLeft:-1}[e.key];if(k){e.preventDefault();selAll((i+k+tabs.length)%tabs.length,t.parentNode)}if(e.key==='Home')selAll(0,t.parentNode);if(e.key==='End')selAll(tabs.length-1,t.parentNode)})})});
@@ -51,4 +51,15 @@ if(cv){var cx=cv.getContext('2d'),a=0,run=!reduce,pb=$('#torus-pause');if(pb){pb
   for(var j=0;j<12;j++){var v=j/12*2*Math.PI;curve(function(t){return P(t*2*Math.PI,v)},a2,80)}
   cx.lineWidth=3.5;curve(function(t){return P(0,t*2*Math.PI)},ac,60);curve(function(t){return P(t*2*Math.PI,Math.PI)},ac,120);cx.globalAlpha=1}
  function loop(){draw();a+=.006;if(run)requestAnimationFrame(loop)}redraws.push(draw);loop()}
+})();
+// glossary tooltips + on-this-page TOC (topic pages)
+(function(){var G=window.GLOSSARY,art=document.querySelector('.topic');if(!art)return;
+ if(G){var terms=Object.keys(G).sort(function(a,b){return b.length-a.length});
+  document.querySelectorAll('.topic .panel, .topic .common').forEach(function(sec){var used={};
+   var w=document.createTreeWalker(sec,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode;if(!p||p.closest('pre,code,a,h1,h2,h3,h4,summary,.gl,.MathJax,mjx-container,script,.viz,figure,.tabs'))return NodeFilter.FILTER_REJECT;return /\S/.test(n.nodeValue)&&n.nodeValue.indexOf('$')<0?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}}),nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+   nodes.forEach(function(n){terms.forEach(function(t){if(used[t]||!n.parentNode)return;var re=new RegExp('\\b('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')(s|es)?\\b','i'),m=n.nodeValue.match(re);if(!m)return;used[t]=1;
+     var after=n.splitText(m.index);after.nodeValue=after.nodeValue.slice(m[0].length);var ab=document.createElement('span');ab.className='gl';ab.tabIndex=0;ab.setAttribute('role','term');ab.setAttribute('aria-describedby','');ab.dataset.def=G[t];ab.textContent=m[0];var tip=document.createElement('span');tip.className='gl-tip';tip.setAttribute('role','tooltip');tip.textContent=G[t];ab.appendChild(tip);n.parentNode.insertBefore(ab,after);n=after})})})}
+ var list=document.getElementById('toc-list');if(!list)return;
+ function build(){list.innerHTML='';var hs=[].slice.call(art.querySelectorAll('.common > h2, .panel:not([hidden]) h3, .panel:not([hidden]) > h2'));hs.forEach(function(h,i){if(!h.id)h.id='s-'+h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40)+'-'+i;var li=document.createElement('li');if(h.tagName==='H3')li.className='sub';var a=document.createElement('a');a.href='#'+h.id;a.textContent=h.textContent.replace(/[▸▾]/g,'').trim();a.addEventListener('click',function(){var d=h.closest('details');if(d)d.open=true});li.appendChild(a);list.appendChild(li)})}
+ build();document.addEventListener('click',function(e){if(e.target.closest('[role=tab]'))setTimeout(build,0)});document.addEventListener('keydown',function(e){if(e.target.closest&&e.target.closest('[role=tab]'))setTimeout(build,0)});
 })();

@@ -4,35 +4,173 @@ title: Modular Forms
 ---
 # Modular Forms
 
+<div class="common" markdown="1">
+## History in brief
+
+- **1829 – Jacobi**'s theta functions already transform simply under $\tau\mapsto-1/\tau$ and $\tau\mapsto\tau+1$; his four-squares theorem is, in modern terms, a statement about a modular form of weight 2.
+- **1870s–1880s – Klein and Dedekind.** Felix Klein studied the modular group and the quotient surfaces now called modular curves; his *Lectures on the Icosahedron* (1884) connect the symmetry group of the icosahedron with the level-5 modular curve, and the level-7 curve is the famous Klein quartic, a genus-3 surface with 168 symmetries.
+- **1916 – Ramanujan** studied the coefficients $\tau(n)$ of $\Delta(\tau)=q\prod(1-q^n)^{24}$; the theory of Hecke operators (1930s) explained his multiplicativity conjectures.
+- **Late 20th century** – modular forms at the centre of number theory (e.g. modularity of elliptic curves).
+- **1990s – Farkas, Kra and Kopeliovich** describe modular curves $X(N)$ explicitly in projective space using theta constants (below).
+</div>
+
+<div class="common farkas" markdown="1">
+## Where Farkas comes in
+
+From his research statement ([home page](https://math.huji.ac.il/~farkas/)): the main contribution "has been obtaining concrete representations of holomorphic mappings of modular curves into projective spaces of low dimensions and the realization of their automorphism groups as the restriction of global isometries of the projective space to the image of the curve. In addition, these mappings have given generalizations of the Platonic solids, interesting theta constant identities, and connections with classical combinatorial number theory."
+
+- Farkas–Kra, "Automorphic forms for subgroups of the modular group", *Israel J. Math.* 82 (1993), [doi:10.1007/bf02808109](https://doi.org/10.1007/bf02808109); part II, *J. Analyse Math.* 70 (1996).
+- Farkas–Kopeliovich–Kra, "Uniformizations of modular curves", *Comm. Anal. Geom.* 4 (1996).
+- Farkas, "Generalizations of the λ function", Israel Math. Conf. Proc. 9 (1996).
+- Brooks–Farkas–Kra, "Number theory, theta identities, and modular curves", Contemp. Math. 201 (1997), [doi:10.1090/conm/201/02606](https://doi.org/10.1090/conm/201/02606).
+- Book: *Theta Constants, Riemann Surfaces and the Modular Group* (AMS GSM 37, 2001), chapters "The modular group and elliptic function theory" ([doi:10.1090/gsm/037/01](https://doi.org/10.1090/gsm/037/01)) and "Function theory for the modular group Γ and its subgroups" ([doi:10.1090/gsm/037/03](https://doi.org/10.1090/gsm/037/03)).
+</div>
+
 ## Non-technical
-A snowflake looks the same when you rotate it by 60°. Some functions are symmetric in a far richer way: they stay essentially the same under an *infinite* family of transformations. These are **modular forms**. They sound abstract, but their "fine print" (the coefficients when you expand them) often counts very concrete things, such as the number of ways to write a number as a sum of squares.
 
-Later in his career Hershel Farkas, together with Irwin Kra and Yaacov Kopeliovich, used them to draw explicit pictures of special surfaces called modular curves, uncovering generalizations of the Platonic solids along the way (from his [home page](https://math.huji.ac.il/~farkas/)).
+### Symmetry, taken to the extreme
+A snowflake looks the same after a 60° turn. Some functions are symmetric in a vastly richer way: there is an infinite family of transformations that leave them essentially unchanged. These are **modular forms**.
 
-<figure><img src="{{ '/assets/img/modular-fundamental-domain.png' | relative_url }}" alt="The upper half-plane tiled by the images of the fundamental domain of the modular group, bounded by arcs of circles" loading="lazy" width="460"><figcaption>Tiles of the upper half-plane under the modular group. Image: Kilom691 (original), Alexander Hulpke (vector), Wikimedia Commons, CC BY-SA 4.0.</figcaption></figure>
+<figure><img src="{{ '/assets/img/modular-fundamental-domain.png' | relative_url }}" alt="The upper half-plane tiled by curved triangles, images of one fundamental tile under the modular group" loading="lazy" width="440"><figcaption>One tile and its images under the modular group: a modular form "knows" all tiles once it knows one. Image: Kilom691 / Alexander Hulpke, Wikimedia Commons, CC BY-SA 4.0.</figcaption></figure>
+
+### Why they matter
+Their hidden "fine print", the list of numbers you get when you expand them, often counts concrete things: ways to write a number as a sum of squares, or numbers of partitions. That's why they sit at the heart of modern number theory.
+
+### Where Platonic solids come in
+Folding up the tiled picture for certain symmetry groups gives surfaces whose symmetries are those of the tetrahedron, the octahedron (or cube) and the icosahedron (or dodecahedron). Farkas and Kra found explicit formulas placing such surfaces in space so that their symmetries become ordinary rotations, generalizations of the Platonic solids.
+
+<div class="key" markdown="1">
+Modular forms are functions that respect an infinite symmetry, and that symmetry is what makes their coefficients satisfy surprising patterns.
+</div>
+
+<div class="myth" markdown="1">
+"Modular means modular arithmetic." The name comes from *moduli*, the parameters describing the shape of a torus, though modular arithmetic does appear (in congruence subgroups).
+</div>
+
+### Further reading
+- Mumford–Series–Wright, *Indra's Pearls* (2002), [doi:10.1017/cbo9781107050051](https://doi.org/10.1017/cbo9781107050051).
 
 ## Somewhat technical
-The modular group $SL_2(\mathbb{Z})$ acts on the upper half-plane by $\tau\mapsto\frac{a\tau+b}{c\tau+d}$ ($a,b,c,d$ integers, $ad-bc=1$). It is generated by two moves: $T:\tau\mapsto\tau+1$ and $S:\tau\mapsto-1/\tau$. Every point can be moved into the shaded region $\mathcal{F}$ ($|\operatorname{Re}\tau|\le\tfrac12$, $|\tau|\ge1$). Try it: click a point and press "Reduce".
+
+### The modular group
+$SL_2(\mathbb{Z})=\left\{\begin{pmatrix}a&b\\c&d\end{pmatrix}: a,b,c,d\in\mathbb{Z},\ ad-bc=1\right\}$ acts on the upper half-plane $\mathbb{H}$ by $\tau\mapsto\frac{a\tau+b}{c\tau+d}$. It is generated by $T:\tau\mapsto\tau+1$ and $S:\tau\mapsto-1/\tau$.
 
 <div class="viz" data-viz="modular"></div>
 
-A **modular form of weight $k$** satisfies $f\big(\tfrac{a\tau+b}{c\tau+d}\big)=(c\tau+d)^k f(\tau)$ and is holomorphic, including at the cusps.
+### Worked example: reduce a point
+Take $\tau=1.3+0.35i$.
+1. $T^{-1}$: $\tau=0.3+0.35i$ (now $|\operatorname{Re}\tau|\le\tfrac12$, but $|\tau|^2=0.2125<1$).
+2. $S$: $\tau=-1/\tau=\frac{-0.3+0.35i}{0.2125}\approx-1.412+1.647i$.
+3. $T$: $\tau\approx-0.412+1.647i$, with $|\tau|>1$: inside the fundamental domain $\mathcal F$. Try the same steps with the "Reduce" button above.
 
-**Worked example.** $\theta_3(0,\tau)^4=\sum_n r_4(n)q^n$ (with $q=e^{\pi i \tau}$) where $r_4(n)$ counts representations as a sum of 4 squares; e.g. $r_4(1)=8$ ($\pm1$ in any of 4 slots). Jacobi's theorem: $r_4(n)=8\sum_{d\mid n,\,4\nmid d}d$, so $r_4(2)=8(1+2)=24$.
+### Definition
+A **modular form of weight $k$** (for $SL_2(\mathbb{Z})$) is a holomorphic $f$ on $\mathbb{H}$ with $f\big(\tfrac{a\tau+b}{c\tau+d}\big)=(c\tau+d)^kf(\tau)$ that is bounded as $\operatorname{Im}\tau\to\infty$. Since $f(\tau+1)=f(\tau)$ it has a Fourier expansion $f=\sum_{n\ge0}a_nq^n$, $q=e^{2\pi i\tau}$.
+
+**Examples.** $E_4=1+240\sum\sigma_3(n)q^n$ (weight 4), $E_6=1-504\sum\sigma_5(n)q^n$ (weight 6), $\Delta=q\prod_{n\ge1}(1-q^n)^{24}=q-24q^2+252q^3-\cdots$ (weight 12).
+
+### Worked example: sums of four squares
+$\vartheta_3(0,\tau)^4=\sum_n r_4(n)e^{\pi in\tau}$ is a modular form of weight 2 for a subgroup of $SL_2(\mathbb{Z})$. Comparing with an Eisenstein series of the same weight yields Jacobi's formula $r_4(n)=8\sum_{d\mid n,\,4\nmid d}d$: $r_4(1)=8$, $r_4(2)=24$, $r_4(3)=32$, $r_4(4)=24$.
+
+<div class="myth" markdown="1">
+"Every function with $f(\tau+1)=f(\tau)$ is modular." Periodicity is only the $T$ half; the $S$ transformation $f(-1/\tau)=\tau^kf(\tau)$ is the hard condition.
+</div>
+
+### Further reading
+- J.-P. Serre, *A Course in Arithmetic*, GTM 7, ch. VII "Modular forms" ([doi:10.1007/978-1-4684-9884-4](https://doi.org/10.1007/978-1-4684-9884-4)).
 
 ## Engineers
-Changing the basis of a lattice $\mathbb{Z}+\tau\mathbb{Z}$ changes $\tau$ by $S$ and $T$ without changing the lattice itself, so any quantity that depends only on the lattice's shape must be (nearly) invariant under them. The reduction algorithm in the widget is the 2D version of lattice basis reduction (Gauss/Lagrange), the ancestor of LLL:
 
-```
-while not in_F(tau):
-    tau -= round(tau.real)          # T^k: shift into |Re| <= 1/2
-    if abs(tau) < 1: tau = -1/tau   # S: invert outside the unit circle
+### Lattice reduction is the S/T algorithm
+Changing the basis of $\mathbb{Z}+\tau\mathbb{Z}$ changes $\tau$ by $S$ and $T$ without changing the lattice. The reduction in the widget is Gauss–Lagrange 2D lattice reduction:
+
+```python
+def reduce(tau, max_steps=100):
+    steps = []
+    for _ in range(max_steps):
+        k = round(tau.real)
+        if k:
+            tau -= k; steps.append(f"T^{-k}")
+        if abs(tau) < 1:
+            tau = -1 / tau; steps.append("S")
+        else:
+            break
+    return tau, steps
+
+print(reduce(complex(1.3, 0.35)))   # ((-0.41...+1.64...j), ['T^-1', 'S', 'T^1'])
 ```
 
-A modular form's Fourier coefficients in $q$ are often integer counts, so a modular identity can be checked numerically by expanding both sides to many terms: exactly how theta-constant identities can be sanity-checked.
+### Check modularity numerically
+```python
+import cmath
+def sigma(n, k): return sum(d**k for d in range(1, n + 1) if n % d == 0)
+def E4(tau, N=60):
+    q = cmath.exp(2j * cmath.pi * tau)
+    return 1 + 240 * sum(sigma(n, 3) * q**n for n in range(1, N))
+
+tau = complex(0.1, 1.2)
+print(E4(-1 / tau) / (tau**4 * E4(tau)))   # ~ (1+0j): weight-4 transformation law
+```
+
+### Modular curves by the numbers
+For the principal congruence subgroup $\Gamma(N)$ ($N\ge3$), the curve $X(N)$ has $\mu/N$ cusps and genus $1+\mu(N-6)/(12N)$, where $\mu=|PSL_2(\mathbb{Z}/N)|=\tfrac{N^3}{2}\prod_{p\mid N}(1-p^{-2})$:
+
+```python
+def primes(n): return [p for p in range(2, n + 1) if n % p == 0 and all(p % d for d in range(2, p))]
+def X(N):
+    mu = N**3 / 2
+    for p in primes(N): mu *= 1 - p**-2
+    mu = round(mu)
+    return dict(N=N, symmetries=mu, cusps=mu // N, genus=1 + mu * (N - 6) // (12 * N))
+
+for N in (3, 4, 5, 7): print(X(N))
+# N=3: 12 symmetries, 4 cusps  -> tetrahedron
+# N=4: 24, 6 cusps             -> octahedron
+# N=5: 60, 12 cusps            -> icosahedron
+# N=7: 168, 24 cusps, genus 3  -> Klein quartic
+```
+
+<div class="key" markdown="1">
+For $N=3,4,5$ the curve $X(N)$ is a sphere, its cusps are the vertices of a tetrahedron, octahedron and icosahedron, and its symmetry group ($A_4$, $S_4$, $A_5$) is that solid's rotation group. Farkas–Kra–Kopeliovich's embeddings extend this picture to higher $N$.
+</div>
+
+### Further reading
+- F. Diamond, J. Shurman, *A First Course in Modular Forms*, GTM 228 (2005), [doi:10.1007/978-0-387-27226-9](https://doi.org/10.1007/978-0-387-27226-9).
 
 ## Scientists
-Modular invariance is the statement that physics on a torus cannot depend on which basis of its periods you choose. In string theory, one-loop amplitudes are integrals over the fundamental domain $\mathcal{F}$ of $SL_2(\mathbb{Z})$ for this reason, and higher-genus amplitudes use theta constants and $Sp(2g,\mathbb{Z})$ (D'Hoker–Phong, [arXiv:hep-th/0110247](https://arxiv.org/abs/hep-th/0110247)). Modular curves $\Gamma(N)\backslash\mathbb{H}^*$ are configuration spaces of tori with extra level-$N$ structure.
+
+### Modular invariance
+A torus with periods $(1,\tau)$ is the same torus for any $SL_2(\mathbb{Z})$-equivalent $\tau$, so any partition function of a 2D theory on a torus must be modular invariant. One-loop string amplitudes are therefore integrals over the fundamental domain $\mathcal{F}$, which tames the ultraviolet region; Alvarez-Gaumé–Moore–Vafa extended these constraints to higher genus with theta functions ([doi:10.1007/BF01210925](https://doi.org/10.1007/BF01210925)).
+
+### Characters and counting
+The characters of many 2D conformal field theories are modular functions (or vector-valued forms) whose $q$-expansions count states by energy level: the physicist's version of "coefficients count things". Examples in this site's [Applications](../applications#statmech): Rogers–Ramanujan functions and hard hexagons.
+
+### Modular flavour symmetry
+Finite modular groups such as $A_5\cong PSL_2(\mathbb{Z}/5)$ are used in flavour model building; Novichkov–Penedo–Petcov (*JHEP* 2019, [doi:10.1007/jhep04(2019)174](https://doi.org/10.1007/jhep04(2019)174)) cite Farkas–Kra's *Theta Constants*.
+
+<div class="myth" markdown="1">
+"Modular invariance is an extra assumption." For a theory on a torus it is a consistency condition: different $\tau$ in one orbit describe literally the same world-sheet.
+</div>
+
+### Further reading
+- D'Hoker–Phong, "The geometry of string perturbation theory" (1988), [doi:10.1103/revmodphys.60.917](https://doi.org/10.1103/revmodphys.60.917).
 
 ## Mathematicians
-For $\Gamma\le SL_2(\mathbb{Z})$ of finite index, $X(\Gamma)=\Gamma\backslash\mathbb{H}^*$ is a compact Riemann surface, and modular forms of weight $k$ are sections of a line bundle on it. For the principal congruence subgroups $\Gamma(N)$, Farkas–Kra–Kopeliovich gave explicit holomorphic maps of $X(\Gamma(N))$ into low-dimensional projective spaces via theta constants, with the automorphism group realized by projective isometries ("Uniformizations of modular curves", *Comm. Anal. Geom.* 4 (1996)). Further: Farkas–Kra, "Automorphic forms for subgroups of the modular group", *Israel J. Math.* 82 (1993), [doi:10.1007/bf02808109](https://doi.org/10.1007/bf02808109), and part II, *J. Analyse Math.* 70 (1996). Book: *Theta Constants, Riemann Surfaces and the Modular Group*, AMS GSM 37 ([doi:10.1090/gsm/037](https://doi.org/10.1090/gsm/037)).
+
+### Definitions
+Let $\Gamma\le SL_2(\mathbb{Z})$ have finite index, $\mathbb{H}^*=\mathbb{H}\cup\mathbb{P}^1(\mathbb{Q})$. $X(\Gamma)=\Gamma\backslash\mathbb{H}^*$ is a compact Riemann surface. A modular form of weight $k$ for $\Gamma$ is holomorphic on $\mathbb{H}$, satisfies $f|_k\gamma=f$ for $\gamma\in\Gamma$, and is holomorphic at every cusp; $M_k(\Gamma)$ is finite-dimensional, with dimension computable by Riemann–Roch on $X(\Gamma)$.
+
+**Level one.** $M_*(SL_2(\mathbb{Z}))=\mathbb{C}[E_4,E_6]$; $\dim M_k=\lfloor k/12\rfloor+1$ for even $k\ge0$, $k\not\equiv2\pmod{12}$, and $\lfloor k/12\rfloor$ for $k\equiv2\pmod{12}$; $j=E_4^3/\Delta$ identifies $X(1)\cong\mathbb{P}^1$.
+
+### Principal congruence subgroups
+$\Gamma(N)=\ker(SL_2(\mathbb{Z})\to SL_2(\mathbb{Z}/N))$. For $N\ge3$, $\bar\Gamma(N)$ is torsion-free, $[PSL_2(\mathbb{Z}):\bar\Gamma(N)]=\mu_N$, $X(N)$ has $\mu_N/N$ cusps and genus $1+\mu_N(N-6)/(12N)$; $PSL_2(\mathbb{Z}/N)$ acts by automorphisms. $X(7)$ is Klein's quartic $x^3y+y^3z+z^3x=0$ with $|\mathrm{Aut}|=168=84(g-1)$, the Hurwitz bound.
+
+### Theta constants as coordinates
+Theta constants with rational characteristics $\theta[\chi](0,N\tau)$ are modular forms of weight $\tfrac12$ (with multiplier) for $\Gamma(N)$-type groups; suitable families of them give holomorphic maps $X(N)\to\mathbb{P}^m$. This is the framework in which Farkas–Kra–Kopeliovich realize $\mathrm{Aut}$ by projective isometries (Farkas–Kra, GSM 37, ch. "Function theory for the modular group Γ and its subgroups").
+
+<div class="myth" markdown="1">
+"Weight-$\tfrac12$ forms behave like integral weight." Theta constants need a multiplier system (an eighth root of unity in the transformation law); this is handled carefully in Farkas–Kra GSM 37, ch. 1–3.
+</div>
+
+### Further reading
+- Diamond–Shurman, GTM 228 (2005); Serre, GTM 7, above.
+- Farkas–Kra, GSM 37 ([doi:10.1090/gsm/037](https://doi.org/10.1090/gsm/037)).

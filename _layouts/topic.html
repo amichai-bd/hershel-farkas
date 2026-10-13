@@ -4,10 +4,11 @@ layout: default
 {% assign topics = site.data.topics %}{% assign slug = page.url | split: "/" | last | remove: ".html" %}
 {% for t in topics %}{% if t.slug == slug %}{% assign i = forloop.index0 %}{% endif %}{% endfor %}
 <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ '/' | relative_url }}">Home</a> › <a href="{{ '/explanations/' | relative_url }}">Explanations</a> › <span aria-current="page">{{ page.title }}</span></nav>
-<article class="topic" data-layers>
+<div class="topic-wrap"><aside class="toc" aria-label="On this page"><strong>On this page</strong><ol id="toc-list"></ol></aside><article class="topic" data-layers>
 {{ content }}
-</article>
+</article></div>
 <nav class="prevnext" aria-label="Topic navigation">
 {% if i > 0 %}{% assign pi = i | minus: 1 %}{% assign pv = topics[pi] %}<a class="prev" href="{{ '/explanations/' | append: pv.slug | relative_url }}">← {{ pv.title }}</a>{% else %}<span></span>{% endif %}
 {% assign n = i | plus: 1 %}{% if topics[n] %}<a class="next" href="{{ '/explanations/' | append: topics[n].slug | relative_url }}">{{ topics[n].title }} →</a>{% endif %}
 </nav>
+<script>window.GLOSSARY={ {% for g in site.data.glossary %}{{ g.term | jsonify }}:{{ g.def | jsonify }}{% unless forloop.last %},{% endunless %}{% endfor %} };</script>
