@@ -87,3 +87,5 @@ figure img{max-width:100%;height:auto;border-radius:10px;background:#fff}
 .farkas{background:color-mix(in srgb,var(--accent) 7%,var(--surface));border:1px solid var(--accent)}
 details{border:1px solid var(--line);border-radius:10px;padding:.4rem .9rem;margin:.8rem 0;background:var(--surface)}details>summary{cursor:pointer;font-weight:600;font-family:Fraunces,serif}details[open]>summary{margin-bottom:.4rem}
 .glossary dt{font-weight:700;margin-top:.6rem}.glossary dd{margin-left:1rem;color:var(--muted)}
+details.sec{border:none;padding:0;background:none;margin:.2rem 0}details.sec>summary{list-style:none;font-family:inherit;font-weight:inherit}details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary h2,details.sec>summary h3{display:inline-block;margin-bottom:.3em}details.sec>summary::before{content:"▾";color:var(--accent);margin-right:.4rem;display:inline-block;transition:transform .2s}details.sec:not([open])>summary::before{transform:rotate(-90deg)}
