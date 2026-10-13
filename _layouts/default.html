@@ -11,6 +11,7 @@
 <script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <script defer src="{{ '/assets/site.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/viz.js' | relative_url }}"></script>
 </head>
 <body class="page-{{ page.pageclass | default: 'default' }}">
 <a class="skip" href="#main">Skip to content</a>
@@ -19,7 +20,7 @@
   <a class="brand" href="{{ '/' | relative_url }}"><span class="brand-mark" aria-hidden="true">θ</span> Hershel M. Farkas</a>
   <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">☰</button>
   <nav id="site-nav" class="site-nav" aria-label="Main">
-   {% assign links = "/|Home,/timeline|Life & Career,/publications|Publications,/explanations/|Explanations,/applications|Applications,/resources|Resources" | split: "," %}
+   {% assign links = "/|Home,/timeline|Life & Career,/publications|Publications,/explanations/|Explanations,/applications|Applications,/playground|Playground,/resources|Resources,/credits|Credits" | split: "," %}
    {% for l in links %}{% assign p = l | split: "|" %}
     {% assign cur = false %}
     {% if p[0] == "/" and page.url == "/" %}{% assign cur = true %}{% elsif p[0] != "/" and page.url contains p[0] %}{% assign cur = true %}{% endif %}

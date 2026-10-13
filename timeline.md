@@ -20,6 +20,19 @@ title: Life and Career
 | 2001 | *Theta Constants, Riemann Surfaces and the Modular Group* (with Kra), AMS GSM 37 | home page |
 | 2010 | *Generalizations of Thomae's Formula for Z_n Curves* (with S. Zemel), Springer DEVM | home page |
 | 2012 | Co-editor, volume in memory of Leon Ehrenpreis, Springer DEVM 28 | home page |
+| 2009 | Lectures on Riemann's theta functions at the student workshop of the Conference on Quadratic Forms, Sums of Squares, Theta Functions and Integral Lattices (University of Florida, March 2009) | [conference page](https://qseries.org/fgarvan/quadformsconf.html) |
+| 2012 | Participant, Ramanujan 125 conference (University of Florida) | [conference page](https://www.qseries.org/fgarvan/ramanujan125.html) |
+| 2016 | Talk "The Schottky Relation in arbitrary genus", 2016 Gainesville Number Theory Conference | [program (PDF)](https://qseries.org/alladi60/program.pdf) |
 | <span class="todo">TODO</span> | Move to Israel / joining the Hebrew University; positions, honors, students, family life | <span class="todo">TODO (family)</span> |
 
-Doctoral students: see the [Mathematics Genealogy Project](https://www.genealogy.math.ndsu.nodak.edu/id.php?id=61354). <span class="todo">TODO: list names here.</span>
+## Doctoral students
+According to the [Mathematics Genealogy Project](https://www.genealogy.math.ndsu.nodak.edu/id.php?id=61354) (3 students, 4 descendants):
+
+- Ok Yoon, State University of New York at Stony Brook, 1972
+- Yaacov Kopeliovich, Hebrew University of Jerusalem, 1994
+- Eran Makover, Hebrew University of Jerusalem, 1998
+
+<span class="todo">TODO (family): other students not listed there.</span>
+
+## Current position
+Professor, Einstein Institute of Mathematics, Hebrew University of Jerusalem ([department page](https://mathematics.huji.ac.il/people/hershel-farkas)); listed areas: complex function theory, Riemann surfaces, theta functions, combinatorial number theory. <span class="todo">TODO: dates of appointment, earlier positions, honors (none found in public sources).</span>

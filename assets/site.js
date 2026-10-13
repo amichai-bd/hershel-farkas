@@ -2,7 +2,7 @@
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.from((r||document).querySelectorAll(s))};
 var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
-var redraws=[];function redraw(){redraws.forEach(function(f){f()})}
+var redraws=[];function redraw(){redraws.forEach(function(f){f()});window.dispatchEvent(new Event('vizredraw'))}
 // theme
 var tt=$('.theme-toggle');if(tt)tt.addEventListener('click',function(){var d=document.documentElement,n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}redraw()});
 // mobile nav
@@ -52,31 +52,4 @@ if(cv){var cx=cv.getContext('2d'),a=0,run=!reduce,pb=$('#torus-pause');if(pb){pb
   for(var j=0;j<12;j++){var v=j/12*2*Math.PI;curve(function(t){return P(t*2*Math.PI,v)},a2,80)}
   cx.lineWidth=3.5;curve(function(t){return P(0,t*2*Math.PI)},ac,60);curve(function(t){return P(t*2*Math.PI,Math.PI)},ac,120);cx.globalAlpha=1}
  function loop(){draw();a+=.006;if(run)requestAnimationFrame(loop)}redraws.push(draw);loop()}
-// theta plot
-var tp=$('#theta-plot');
-if(tp){var g=tp.getContext('2d'),sl=$('#theta-t'),out=$('#theta-t-out');
- function th(x,t){var s=0;for(var n=-30;n<=30;n++)s+=Math.exp(-Math.PI*n*n*t)*Math.cos(2*Math.PI*n*x);return s}
- function plot(){var W=tp.width,H=tp.height,t=+sl.value,ys=[],mx=0;out.textContent=t.toFixed(2);for(var i=0;i<=W;i++){var y=th(i/W*3-1.5,t);ys.push(y);mx=Math.max(mx,Math.abs(y))}
-  g.clearRect(0,0,W,H);g.strokeStyle=css('--line');g.lineWidth=1;g.beginPath();g.moveTo(0,H/2);g.lineTo(W,H/2);for(var k=0;k<=3;k++){g.moveTo(k*W/3,0);g.lineTo(k*W/3,H)}g.stroke();
-  g.fillStyle=css('--muted');g.font='12px Inter,sans-serif';['-1.5','-0.5','0.5','1.5'].forEach(function(l,k){g.fillText(l,Math.min(W-26,k*W/3+3),H-6)});
-  g.strokeStyle=css('--accent');g.lineWidth=2.5;g.beginPath();ys.forEach(function(y,i){var Y=H/2-y/mx*(H/2-18);i?g.lineTo(i,Y):g.moveTo(i,Y)});g.stroke()}
- sl.addEventListener('input',plot);redraws.push(plot);plot()}
-// lattice
-var sv=$('#lattice');
-if(sv){var NS='http://www.w3.org/2000/svg',tau={x:.35,y:.8},S=90,O={x:230,y:220};
- function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
- function draw(){while(sv.firstChild)sv.removeChild(sv.firstChild);var ac=css('--accent'),a2=css('--accent2'),mu=css('--muted');
-  function pt(m,n){return {x:O.x+S*(m+n*tau.x),y:O.y-S*n*tau.y}}
-  var p0=pt(0,0),p1=pt(1,0),p2=pt(1,1),p3=pt(0,1);
-  sv.appendChild(el('polygon',{points:[p0,p1,p2,p3].map(function(p){return p.x+','+p.y}).join(' '),fill:ac,'fill-opacity':.18,stroke:ac,'stroke-width':2}));
-  for(var m=-4;m<=6;m++)for(var n=-1;n<=3;n++){var p=pt(m,n);if(p.x>-5&&p.x<645&&p.y>-5&&p.y<305)sv.appendChild(el('circle',{cx:p.x,cy:p.y,r:3.5,fill:mu}))}
-  [[p1,'1'],[p3,'τ']].forEach(function(a){sv.appendChild(el('line',{x1:p0.x,y1:p0.y,x2:a[0].x,y2:a[0].y,stroke:a2,'stroke-width':3}));var t=el('text',{x:a[0].x+8,y:a[0].y-8,fill:a2,'font-size':18,'font-family':'Fraunces,serif'});t.textContent=a[1];sv.appendChild(t)});
-  var t0=el('text',{x:p0.x-14,y:p0.y+20,fill:mu,'font-size':14});t0.textContent='0';sv.appendChild(t0);
-  var h=el('circle',{cx:p3.x,cy:p3.y,r:11,fill:ac,stroke:css('--surface'),'stroke-width':3,tabindex:0,role:'slider','aria-label':'tau point','aria-valuetext':'tau = '+tau.x.toFixed(2)+' + '+tau.y.toFixed(2)+'i',style:'cursor:grab'});sv.appendChild(h);
-  h.addEventListener('pointerdown',function(e){e.preventDefault();drag=true});
-  h.addEventListener('keydown',function(e){var d={ArrowLeft:[-.05,0],ArrowRight:[.05,0],ArrowUp:[0,.05],ArrowDown:[0,-.05]}[e.key];if(d){e.preventDefault();tau.x=Math.max(-1,Math.min(1.5,tau.x+d[0]));tau.y=Math.max(.3,Math.min(2.2,tau.y+d[1]));draw();sv.querySelector('[role=slider]').focus()}})}
- var drag=false;sv.style.touchAction='none';
- sv.addEventListener('pointermove',function(ev){if(!drag)return;var r=sv.getBoundingClientRect(),k=640/r.width;tau.x=Math.max(-1,Math.min(1.5,((ev.clientX-r.left)*k-O.x)/S));tau.y=Math.max(.3,Math.min(2.2,(O.y-(ev.clientY-r.top)*k)/S));draw()});
- window.addEventListener('pointerup',function(){drag=false});
- redraws.push(draw);draw()}
 })();
