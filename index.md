@@ -27,6 +27,8 @@ This site is written by his grandson, Amichai, to understand that work in layers
 
 ## Explore the ideas
 
+<div class="iam"><label for="iam"><strong>I am a…</strong></label> <select id="iam"><option value="0">Non-technical reader</option><option value="1">Somewhat technical, curious reader</option><option value="2">Engineer</option><option value="3">Scientist</option><option value="4">Mathematician</option></select> <span id="iam-msg" aria-live="polite"></span></div>
+
 <div class="cards">
-{% for t in site.data.topics %}<a class="card" href="{{ '/explanations/' | append: t.slug | relative_url }}"><span class="card-icon" aria-hidden="true">{{ t.icon }}</span><span class="card-num">{{ forloop.index }}</span><h3>{{ t.title }}</h3><p>Story · Undergraduate · Technical</p></a>
+{% for t in site.data.topics %}<a class="card" href="{{ '/explanations/' | append: t.slug | relative_url }}"><span class="card-icon" aria-hidden="true">{{ t.icon }}</span><span class="card-num">{{ forloop.index }}</span><h3>{{ t.title }}</h3><p>Five audience levels</p></a>
 {% endfor %}</div>

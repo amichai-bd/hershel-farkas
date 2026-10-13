@@ -9,17 +9,19 @@ var tt=$('.theme-toggle');if(tt)tt.addEventListener('click',function(){var d=doc
 var nt=$('.nav-toggle'),nav=$('#site-nav');if(nt)nt.addEventListener('click',function(){var o=nav.classList.toggle('open');nt.setAttribute('aria-expanded',o);nt.setAttribute('aria-label',o?'Close menu':'Open menu')});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav&&nav.classList.contains('open')){nav.classList.remove('open');nt.setAttribute('aria-expanded',false);nt.focus()}});
 // layer tabs
+var LV=['non-technical','somewhat-technical','engineers','scientists','mathematicians'];
+var who=$('#iam');if(who){try{who.value=localStorage.getItem('level')||'0'}catch(e){}who.addEventListener('change',function(){try{localStorage.setItem('level',who.value)}catch(e){}var m=$('#iam-msg');if(m)m.textContent='Saved: topic pages will open at the '+who.options[who.selectedIndex].text+' level.'})}
 var art=$('[data-layers]');
-if(art){var h2s=$$('h2',art).filter(function(h){return /^(Story|Undergraduate|Technical)$/.test(h.textContent.trim())});
- if(h2s.length){var bar=document.createElement('div');bar.className='tabs';bar.setAttribute('role','tablist');bar.setAttribute('aria-label','Explanation level');
+if(art){var h2s=$$('h2',art).filter(function(h){return /^(Non-technical|Somewhat technical|Engineers|Scientists|Mathematicians)$/.test(h.textContent.trim())});
+ if(h2s.length){var bar=document.createElement('div');bar.className='tabs';bar.setAttribute('role','tablist');bar.setAttribute('aria-label','Audience level');
   var panels=h2s.map(function(h,i){var p=document.createElement('section');p.className='panel';p.id='layer-'+i;p.setAttribute('role','tabpanel');p.tabIndex=0;
    h.parentNode.insertBefore(p,h);var n=h;while(n&&!(n!==h&&h2s.indexOf(n)>=0)){var nx=n.nextSibling;p.appendChild(n);n=nx}
-   var b=document.createElement('button');b.setAttribute('role','tab');b.id='tab-'+i;b.setAttribute('aria-controls',p.id);b.textContent=({Story:'📖 Story',Undergraduate:'🎓 Undergraduate',Technical:'∫ Technical'})[h.textContent.trim()];
+   var b=document.createElement('button');b.setAttribute('role','tab');b.id='tab-'+i;b.setAttribute('aria-controls',p.id);b.textContent=({'Non-technical':'☕ Non-technical','Somewhat technical':'🔍 Somewhat technical','Engineers':'⚙ Engineers','Scientists':'⚛ Scientists','Mathematicians':'∫ Mathematicians'})[h.textContent.trim()];
    p.setAttribute('aria-labelledby',b.id);bar.appendChild(b);return p});
   art.insertBefore(bar,panels[0]);var tabs=$$('[role=tab]',bar);
-  function sel(i,focus){tabs.forEach(function(t,j){t.setAttribute('aria-selected',i===j);t.tabIndex=i===j?0:-1;panels[j].hidden=i!==j});if(focus)tabs[i].focus();try{localStorage.setItem('layer',i)}catch(e){};history.replaceState(null,'','#'+['story','undergraduate','technical'][i]);redraw()}
+  function sel(i,focus){tabs.forEach(function(t,j){t.setAttribute('aria-selected',i===j);t.tabIndex=i===j?0:-1;panels[j].hidden=i!==j});if(focus)tabs[i].focus();try{localStorage.setItem('level',i)}catch(e){};history.replaceState(null,'','#'+LV[i]);redraw()}
   tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(i)});t.addEventListener('keydown',function(e){var k={ArrowRight:1,ArrowLeft:-1}[e.key];if(k){e.preventDefault();sel((i+k+tabs.length)%tabs.length,true)}if(e.key==='Home')sel(0,true);if(e.key==='End')sel(tabs.length-1,true)})});
-  var hi=['#story','#undergraduate','#technical'].indexOf(location.hash),st=+(localStorage.getItem('layer')||0);sel(hi>=0?hi:(st<tabs.length?st:0));}}
+  var hi=LV.indexOf(location.hash.slice(1)),st=+(localStorage.getItem('level')||0);sel(hi>=0?hi:(st<tabs.length?st:0));}}
 // timeline
 var tbl=$('.page-timeline table');
 if(tbl){var ol=document.createElement('ol');ol.className='tl';

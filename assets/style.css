@@ -60,3 +60,6 @@ table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border-bottom:1
 .pubs-list{list-style:none;padding:0}.pubs-list li{padding:.7rem .9rem;border-bottom:1px solid var(--line);display:flex;gap:.8rem}
 .pubs-list .y{flex:0 0 3.4rem;font-weight:600;color:var(--accent2)}.pubs-list .t{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 mark{background:var(--todo-bg);color:inherit}
+.iam{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:.8rem 1rem;box-shadow:var(--shadow)}
+.iam select{font:inherit;padding:.4rem .6rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}#iam-msg{color:var(--muted);font-size:.9rem}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:.8rem;overflow:auto;font-size:.88rem}
