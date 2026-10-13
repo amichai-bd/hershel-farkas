@@ -11,17 +11,16 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav&&nav.cl
 // layer tabs
 var LV=['non-technical','somewhat-technical','engineers','scientists','mathematicians'];
 var who=$('#iam');if(who){try{who.value=localStorage.getItem('level')||'0'}catch(e){}who.addEventListener('change',function(){try{localStorage.setItem('level',who.value)}catch(e){}var m=$('#iam-msg');if(m)m.textContent='Saved: topic pages will open at the '+who.options[who.selectedIndex].text+' level.'})}
-var art=$('[data-layers]');
-if(art){var h2s=$$('h2',art).filter(function(h){return /^(Non-technical|Somewhat technical|Engineers|Scientists|Mathematicians)$/.test(h.textContent.trim())});
- if(h2s.length){var bar=document.createElement('div');bar.className='tabs';bar.setAttribute('role','tablist');bar.setAttribute('aria-label','Audience level');
-  var panels=h2s.map(function(h,i){var p=document.createElement('section');p.className='panel';p.id='layer-'+i;p.setAttribute('role','tabpanel');p.tabIndex=0;
-   h.parentNode.insertBefore(p,h);var n=h;while(n&&!(n!==h&&h2s.indexOf(n)>=0)){var nx=n.nextSibling;p.appendChild(n);n=nx}
-   var b=document.createElement('button');b.setAttribute('role','tab');b.id='tab-'+i;b.setAttribute('aria-controls',p.id);b.textContent=({'Non-technical':'☕ Non-technical','Somewhat technical':'🔍 Somewhat technical','Engineers':'⚙ Engineers','Scientists':'⚛ Scientists','Mathematicians':'∫ Mathematicians'})[h.textContent.trim()];
-   p.setAttribute('aria-labelledby',b.id);bar.appendChild(b);return p});
-  art.insertBefore(bar,panels[0]);var tabs=$$('[role=tab]',bar);
-  function sel(i,focus){tabs.forEach(function(t,j){t.setAttribute('aria-selected',i===j);t.tabIndex=i===j?0:-1;panels[j].hidden=i!==j});if(focus)tabs[i].focus();try{localStorage.setItem('level',i)}catch(e){};history.replaceState(null,'','#'+LV[i]);redraw()}
-  tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(i)});t.addEventListener('keydown',function(e){var k={ArrowRight:1,ArrowLeft:-1}[e.key];if(k){e.preventDefault();sel((i+k+tabs.length)%tabs.length,true)}if(e.key==='Home')sel(0,true);if(e.key==='End')sel(tabs.length-1,true)})});
-  var hi=LV.indexOf(location.hash.slice(1)),st=+(localStorage.getItem('level')||0);sel(hi>=0?hi:(st<tabs.length?st:0));}}
+var groups=[],arts=$$('[data-layers]'),LBL={'Non-technical':'☕ Non-technical','Somewhat technical':'🔍 Somewhat technical','Engineers':'⚙ Engineers','Scientists':'⚛ Scientists','Mathematicians':'∫ Mathematicians'};
+arts.forEach(function(art,gi){var hs=$$('h2,h3',art).filter(function(h){return /^(Non-technical|Somewhat technical|Engineers|Scientists|Mathematicians)$/.test(h.textContent.trim())});if(!hs.length)return;
+ var bar=document.createElement('div');bar.className='tabs';bar.setAttribute('role','tablist');bar.setAttribute('aria-label','Audience level');
+ var panels=hs.map(function(h,i){var p=document.createElement('section');p.className='panel';p.id='layer-'+gi+'-'+i;p.setAttribute('role','tabpanel');p.tabIndex=0;
+  h.parentNode.insertBefore(p,h);var n=h;while(n&&!(n!==h&&hs.indexOf(n)>=0)){var nx=n.nextSibling;p.appendChild(n);n=nx}
+  var b=document.createElement('button');b.setAttribute('role','tab');b.id='tab-'+gi+'-'+i;b.setAttribute('aria-controls',p.id);b.textContent=LBL[h.textContent.trim()];p.setAttribute('aria-labelledby',b.id);bar.appendChild(b);return p});
+ art.insertBefore(bar,panels[0]);var tabs=$$('[role=tab]',bar);groups.push({tabs:tabs,panels:panels});
+ tabs.forEach(function(t,i){t.addEventListener('click',function(){selAll(i)});t.addEventListener('keydown',function(e){var k={ArrowRight:1,ArrowLeft:-1}[e.key];if(k){e.preventDefault();selAll((i+k+tabs.length)%tabs.length,t.parentNode)}if(e.key==='Home')selAll(0,t.parentNode);if(e.key==='End')selAll(tabs.length-1,t.parentNode)})})});
+function selAll(i,focusBar){groups.forEach(function(g){g.tabs.forEach(function(t,j){t.setAttribute('aria-selected',i===j);t.tabIndex=i===j?0:-1;g.panels[j].hidden=i!==j});if(focusBar&&g.tabs[0].parentNode===focusBar)g.tabs[i].focus()});try{localStorage.setItem('level',i)}catch(e){};if(groups.length===1)history.replaceState(null,'','#'+LV[i]);redraw()}
+if(groups.length){var hi=LV.indexOf(location.hash.slice(1)),st=+(localStorage.getItem('level')||0);selAll(hi>=0?hi:(st<5?st:0))}
 // timeline
 var tbl=$('.page-timeline table');
 if(tbl){var ol=document.createElement('ol');ol.className='tl';

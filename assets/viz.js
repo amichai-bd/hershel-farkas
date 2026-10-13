@@ -121,6 +121,31 @@ V.kdv=function(root){var c=canvas(root,640,240,'Animation of the exact two-solit
   for(i=0;i<=W;i++){x=(i/W-.5)*24;var Y=H-20-u(x,t)/8.5*(H-40);i?g.lineTo(i,Y):g.moveTo(i,Y)}g.stroke();g.fillStyle=css('--muted');g.font='13px Inter,sans-serif';g.fillText('t = '+t.toFixed(3),10,18)}
  function loop(){draw();t+=.0025;if(t>.6)t=-.6;ts.value=t;if(run)requestAnimationFrame(loop)}draw();if(run)loop();
  root.appendChild(h('p',{class:'vcap'},'Exact solution of $u_t+6uu_x+u_{xxx}=0$: $u=12\\,\\dfrac{3+4\\cosh(2x-8t)+\\cosh(4x-64t)}{[3\\cosh(x-28t)+\\cosh(3x-36t)]^2}$. Solitons are the degenerate (pinched-surface) limit of the theta-function solutions of Its–Matveev (1975).'));return draw};
+
+// 8. elliptic curve point addition over F_p
+V.ecc=function(root){var p=97,A=2,B=3,NS='http://www.w3.org/2000/svg';
+ function md(a){return ((a%p)+p)%p}function inv(a){a=md(a);var t=0,nt=1,r=p,nr=a;while(nr){var q=Math.floor(r/nr);var x=t-q*nt;t=nt;nt=x;x=r-q*nr;r=nr;nr=x}return md(t)}
+ function add(P,Q){if(!P)return Q;if(!Q)return P;if(P[0]===Q[0]&&md(P[1]+Q[1])===0)return null;var l=(P[0]===Q[0])?md((3*P[0]*P[0]+A)*inv(2*P[1])):md((Q[1]-P[1])*inv(Q[0]-P[0]));var x=md(l*l-P[0]-Q[0]);return [x,md(l*(P[0]-x)-P[1])]}
+ var pts=[];for(var x=0;x<p;x++)for(var y=0;y<p;y++)if(md(y*y-(x*x*x+A*x+B))===0)pts.push([x,y]);
+ var info=h('p',{class:'vcap'},'Curve $y^2 = x^3 + 2x + 3$ over the field with '+p+' elements: '+pts.length+' points plus the point at infinity O. Click a point P, then a point Q.');root.appendChild(info);
+ var svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','-6 -6 '+(p*6+12)+' '+(p*6+12));svg.setAttribute('role','img');svg.setAttribute('aria-label','Grid of the points of an elliptic curve over a finite field; click two points to add them');svg.style.maxWidth='520px';root.appendChild(svg);
+ var bar=h('div',{class:'vbar'});root.appendChild(bar);var out=h('p',{class:'vcap','aria-live':'polite'});root.appendChild(out);
+ var P=null,Q=null,R;function S(pt){return pt?'('+pt[0]+', '+pt[1]+')':'O'}
+ function draw(){while(svg.firstChild)svg.removeChild(svg.firstChild);var mu=css('--muted'),ac=css('--accent'),a2=css('--accent2'),ink=css('--ink');
+  var bg=document.createElementNS(NS,'rect');bg.setAttribute('x',-6);bg.setAttribute('y',-6);bg.setAttribute('width',p*6+12);bg.setAttribute('height',p*6+12);bg.setAttribute('fill','none');bg.setAttribute('stroke',css('--line'));svg.appendChild(bg);
+  pts.forEach(function(pt){var c=document.createElementNS(NS,'circle');var on=(P&&pt+''===P+'')?ac:(Q&&pt+''===Q+'')?a2:(R&&pt+''===R+'')?ink:mu;c.setAttribute('cx',pt[0]*6);c.setAttribute('cy',(p-1-pt[1])*6);c.setAttribute('r',on===mu?3.2:7);c.setAttribute('fill',on);c.setAttribute('tabindex',0);c.setAttribute('role','button');c.setAttribute('aria-label','point '+S(pt));c.style.cursor='pointer';
+   var pick=function(){if(!P||(P&&Q)){P=pt;Q=null;R=null}else{Q=pt;R=add(P,Q)}draw()};c.addEventListener('click',pick);c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick()}});svg.appendChild(c)});
+  out.innerHTML=P?('P = '+S(P)+(Q?' · Q = '+S(Q)+' · <strong>P + Q = '+S(R)+'</strong> (black)':' · now pick Q (or press "Double P")')):'Pick a point P.'}
+ btn(bar,'Double P (P + P)',function(){if(P){Q=P;R=add(P,P);draw()}});
+ btn(bar,'Order of P',function(){if(!P)return;var k=1,X=P;while(X&&k<200){X=add(X,P);k++}out.innerHTML='P = '+S(P)+' has order '+k+': adding P to itself '+k+' times returns to O. Recovering k from kP is the discrete logarithm problem that elliptic-curve cryptography relies on (here tiny, so easy).'});
+ draw();if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise([info]);return draw};
+// 9. Rogers-Ramanujan explorer
+V.rogers=function(root){var s=slider(root,'Check all n up to',5,150,1,20),out=h('div',{class:'fk','aria-live':'polite'});root.appendChild(out);
+ function run(){var N=+s.value;var memo={};function f(n,m){if(n===0)return 1;if(m<=0||n<0)return 0;if(m>n)m=n;var k=n+','+m;if(k in memo)return memo[k];return memo[k]=f(n,m-1)+f(n-m,m-2)}
+  var c=[1];for(var i=1;i<=N;i++)c.push(0);for(var q=1;q<=N;q++)if(q%5===1||q%5===4)for(var k=q;k<=N;k++)c[k]+=c[k-q];
+  var rows='',ok=true;for(var n=1;n<=N;n++){var a=f(n,n),b=c[n];if(a!==b)ok=false;if(n<=12||n===N)rows+='<tr><td>'+n+'</td><td>'+a+'</td><td>'+b+'</td><td>'+(a===b?'✓':'✗')+'</td></tr>';else if(n===13)rows+='<tr><td colspan=4>…</td></tr>'}
+  out.innerHTML='<p><strong>'+(ok?'Equal for every n ≤ '+N+' ✓':'mismatch')+'</strong></p><table><thead><tr><th>n</th><th>parts differing by ≥ 2</th><th>parts ≡ ±1 (mod 5)</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>'}
+ s.addEventListener('input',run);run();return null};
 // mount
 var redraws=[];document.querySelectorAll('[data-viz]').forEach(function(el){var f=V[el.dataset.viz];if(f){var r=f(el);if(r)redraws.push(r)}});
 window.addEventListener('vizredraw',function(){redraws.forEach(function(f){f()})});
