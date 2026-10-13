@@ -1,0 +1,5 @@
+- {slug: riemann-surfaces, title: Riemann Surfaces, icon: "◯"}
+- {slug: theta-functions, title: Theta Functions, icon: "θ"}
+- {slug: schottky-problem, title: The Schottky Problem, icon: "?"}
+- {slug: modular-forms, title: Modular Forms, icon: "⬡"}
+- {slug: farkas-kra-identities, title: Farkas–Kra Identities, icon: "∑"}

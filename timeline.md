@@ -1,5 +1,6 @@
 ---
 layout: default
+pageclass: timeline
 title: Life and Career
 ---
 # Life and Career Timeline

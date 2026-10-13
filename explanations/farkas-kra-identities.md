@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: topic
 title: Farkas–Kra Identities
 ---
 # Farkas–Kra Partition Identities

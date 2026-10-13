@@ -1,5 +1,6 @@
 ---
 layout: default
+pageclass: pubs
 title: Publications
 ---
 # Publications

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: topic
 title: Riemann Surfaces
 ---
 # Riemann Surfaces
@@ -8,6 +8,9 @@ title: Riemann Surfaces
 Some functions, like the square root, give two answers at once. Riemann's idea (1851) was to build a surface on which such a function becomes single-valued: glue together copies of the plane so that walking around a point carries you smoothly from one answer to the other. The resulting shapes, closed up, look like spheres, doughnuts, or doughnuts with several holes. The number of holes, the **genus**, turns out to control almost everything.
 
 ## Undergraduate
+
+<figure class="viz"><svg id="lattice" viewBox="0 0 640 300" role="img" aria-label="A lattice of points in the complex plane with one shaded period parallelogram spanned by 1 and tau; drag the tau point to reshape it"></svg><figcaption>The torus $\mathbb{C}/\Lambda$: glue opposite sides of the shaded period parallelogram spanned by $1$ and $\tau$. Drag $\tau$ (or focus it and use the arrow keys).</figcaption></figure>
+
 A Riemann surface is a connected 1-dimensional complex manifold: locally it looks like an open set in $\mathbb{C}$, and the transition maps between charts are holomorphic. Compact examples: the Riemann sphere (genus 0), complex tori $\mathbb{C}/\Lambda$ (genus 1), and the surface of $y^2 = (x-a_1)\cdots(x-a_{2g+2})$, a hyperelliptic surface of genus $g$. Key facts: a compact surface of genus $g$ carries exactly $g$ independent holomorphic 1-forms, and the Riemann–Roch theorem $\ell(D) - \ell(K-D) = \deg D - g + 1$ counts meromorphic functions with prescribed poles.
 
 ## Technical
